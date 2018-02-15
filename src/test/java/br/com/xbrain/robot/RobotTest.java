@@ -72,12 +72,12 @@ public class RobotTest {
 	
 	@Test(expected = NullPointerException.class)
 	public void mustValidateWhenCreatingARobotWithoutName() {
-		Robot robot = Robot.create(null, null);
+		Robot.create(null, null);
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void mustValidateWhenCreatingARobotWithoutSpace() {
-		Robot robot = Robot.create("Test", null);
+		Robot.create("Test", null);
 	}
 	
 	private Robot oneRobot() {
