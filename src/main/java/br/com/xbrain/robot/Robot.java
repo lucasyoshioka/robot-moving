@@ -42,9 +42,36 @@ public class Robot implements Walkable {
 
 	public void walk() {
 		printAction(numberOfSteps, direction);
-		CommandFactory.create().parse(direction)
-				.execute(numberOfSteps, direction, this);
+		CommandFactory.create(this).parse(direction).execute();
 		printCurrentPosition();
+	}
+
+	public void walkRight() {
+		linePosition = linePosition + numberOfSteps;
+		if (linePosition >= space.getLineSize()) {
+			linePosition = linePosition - space.getLineSize();
+		}
+	}
+
+	public void walkLeft() {
+		linePosition = linePosition - numberOfSteps;
+		while (linePosition <= 0) {
+			linePosition = linePosition + space.getLineSize();
+		}
+	}
+
+	public void walkUp() {
+		columnPosition = columnPosition - numberOfSteps;
+		while (columnPosition <= 0) {
+			columnPosition = columnPosition + space.getColumnSize();
+		}
+	}
+
+	public void walkDown() {
+		columnPosition = columnPosition + numberOfSteps;
+		if (columnPosition >= space.getColumnSize()) {
+			columnPosition = columnPosition - space.getColumnSize();
+		}
 	}
 
 	private void printCurrentPosition() {

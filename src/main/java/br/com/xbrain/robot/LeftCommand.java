@@ -2,12 +2,18 @@ package br.com.xbrain.robot;
 
 public class LeftCommand implements Command {
 
-	public void execute(Integer numberOfSteps, Direction direction, Robot robot) {
-		Integer position = robot.currentLinePosition() - numberOfSteps;
-		while (position <= 0) {
-			position = position + robot.getSpace().getLineSize();
-		}
-		robot.setLinePosition(position);
+	private Robot robot;
+
+	private LeftCommand(Robot target) {
+		this.robot = target;
+	}
+
+	public static LeftCommand to(Robot target) {
+		return new LeftCommand(target);
+	}
+
+	public void execute() {
+		robot.walkLeft();
 	}
 
 }

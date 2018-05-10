@@ -7,15 +7,15 @@ public class CommandFactory {
 
 	private Map<Direction, Command> commandsMap = new HashMap<Direction, Command>();
 
-	private CommandFactory() {
-		commandsMap.put(Direction.RIGHT, new RightCommand());
-		commandsMap.put(Direction.LEFT, new LeftCommand());
-		commandsMap.put(Direction.UP, new UpCommand());
-		commandsMap.put(Direction.DOWN, new DownCommand());
+	private CommandFactory(Robot robot) {
+		commandsMap.put(Direction.RIGHT, RightCommand.to(robot));
+		commandsMap.put(Direction.LEFT, LeftCommand.to(robot));
+		commandsMap.put(Direction.UP, UpCommand.to(robot));
+		commandsMap.put(Direction.DOWN, DownCommand.to(robot));
 	}
 
-	public static CommandFactory create() {
-		return new CommandFactory();
+	public static CommandFactory create(Robot robot) {
+		return new CommandFactory(robot);
 	}
 
 	public Command parse(Direction direction) {
