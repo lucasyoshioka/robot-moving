@@ -41,73 +41,41 @@ public class Robot implements Walkable {
 	}
 
 	public void walk() {
-		switch (direction) {
-		case UP:
-			walkUp(numberOfSteps);
-			break;
-		case DOWN:
-			walkDown(numberOfSteps);
-			break;
-		case RIGHT:
-			walkRight(numberOfSteps);
-			break;
-		case LEFT:
-			walkLeft(numberOfSteps);
-			break;
-		}
-	}
-
-	private void walkUp(Integer numberOfSteps) {
 		printAction(numberOfSteps, direction);
-		this.columnPosition = this.columnPosition - numberOfSteps;
-		while (this.columnPosition <= 0) {
-			this.columnPosition = this.columnPosition + this.space.getColumnSize();
-		}
-		printCurrentPosition();
-	}
-
-	private void walkDown(Integer numberOfSteps) {
-		printAction(numberOfSteps, direction);
-		this.columnPosition = this.columnPosition + numberOfSteps;
-		if (this.columnPosition >= this.space.getColumnSize()) {
-			this.columnPosition = this.columnPosition - this.space.getColumnSize();
-		}
-		printCurrentPosition();
-	}
-
-	private void walkRight(Integer numberOfSteps) {
-		printAction(numberOfSteps, direction);
-		this.linePosition = this.linePosition + numberOfSteps;
-		if (this.linePosition >= this.space.getLineSize()) {
-			this.linePosition = this.linePosition - this.space.getLineSize();
-		}
-		printCurrentPosition();
-	}
-
-	private void walkLeft(Integer numberOfSteps) {
-		printAction(numberOfSteps, direction);
-		this.linePosition = this.linePosition - numberOfSteps;
-		while (linePosition <= 0) {
-			this.linePosition = this.linePosition + this.space.getLineSize();
-		}
+		CommandFactory.create().parse(direction)
+				.execute(numberOfSteps, direction, this);
 		printCurrentPosition();
 	}
 
 	private void printCurrentPosition() {
-		System.out.println("The current position of " + this.name + " is:\nColumn: " + this.columnPosition + "\nLine: "
+		System.out.println("The current position of " + this.name
+				+ " is:\nColumn: " + this.columnPosition + "\nLine: "
 				+ this.linePosition + "\n");
 	}
-	
+
 	private void printAction(Integer numberOfSteps, Direction direction) {
-		System.out.println("Walking " + numberOfSteps + " steps to " + direction + "\n");
+		System.out.println("Walking " + numberOfSteps + " steps to "
+				+ direction + "\n");
 	}
-	
+
 	public Integer currentColumnPosition() {
 		return this.columnPosition;
 	}
-	
+
 	public Integer currentLinePosition() {
 		return this.linePosition;
+	}
+
+	public void setColumnPosition(Integer columnPosition) {
+		this.columnPosition = columnPosition;
+	}
+
+	public void setLinePosition(Integer linePosition) {
+		this.linePosition = linePosition;
+	}
+
+	public Space getSpace() {
+		return this.space;
 	}
 
 }
